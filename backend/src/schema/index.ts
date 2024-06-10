@@ -9,6 +9,7 @@ export const typeDefs = `#graphql
   type Query {
     books: [Book]
     readingList: [Book]
+    searchBooks(title: String!): [Book]
   }
 
   type Mutation {

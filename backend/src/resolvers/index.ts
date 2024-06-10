@@ -13,6 +13,11 @@ export const resolvers = {
   Query: {
     books: () => booksData,
     readingList: () => readingList,
+    searchBooks: (_: unknown, { title }: { title: string }) => {
+      return booksData.filter((book) =>
+        book.title.toLowerCase().includes(title.toLowerCase())
+      );
+    },
   },
   Mutation: {
     addBookToReadingList: (_: unknown, { title }: { title: string }) => {
