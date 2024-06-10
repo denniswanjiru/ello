@@ -25,5 +25,15 @@ export const resolvers = {
 
       return book;
     },
+    removeBookFromReadingList: (_: unknown, { title }: { title: string }) => {
+      const bookIndex = readingList.findIndex((book) => book.title === title);
+
+      if (bookIndex !== -1) {
+        const [removedBook] = readingList.splice(bookIndex, 1);
+        return removedBook;
+      }
+
+      return null;
+    },
   },
 };
