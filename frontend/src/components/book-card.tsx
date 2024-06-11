@@ -2,27 +2,12 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import { styled } from "@mui/material/styles";
 
-import { Button, ButtonProps, CardMedia } from "@mui/material";
-import { orange } from "@mui/material/colors";
+import { useMutation } from "@apollo/client";
+import { CardMedia } from "@mui/material";
 import { Book } from "../generated/graphql";
-
-const StyledButton = styled(Button)<ButtonProps & { danger?: boolean }>(
-  ({ danger }) => ({
-    backgroundColor: danger ? "red" : "",
-    color: "white",
-    marginTop: 3,
-    borderRadius: "8px",
-    height: "32px",
-    fontWeight: "bold",
-    fontSize: "!4px",
-    textTransform: "capitalize",
-    "&:hover": {
-      backgroundColor: orange[700],
-    },
-  })
-);
+import { ADD_BOOK_TO_LIST } from "../graphql/mutations";
+import { StyledButton } from "./ui/styled-button";
 
 export default function BookCard({
   reading,
@@ -31,6 +16,17 @@ export default function BookCard({
   reading?: boolean;
   book: Book;
 }) {
+  const [addBookToList, { loading }] = useMutation(ADD_BOOK_TO_LIST);
+
+  const handleAddBookToList = async () => {
+    try {
+      await addBookToList({ variables: { title: book.title } });
+      console.log("success!!");
+    } catch (error) {
+      console.log("Unable to add book to the reading list");
+    }
+  };
+
   return (
     <Card sx={{ display: "flex", borderRadius: "10px" }}>
       <CardMedia
@@ -71,7 +67,13 @@ export default function BookCard({
                 Remove from list
               </StyledButton>
             ) : (
-              <StyledButton variant="contained">Add to list</StyledButton>
+              <StyledButton
+                onClick={handleAddBookToList}
+                variant="contained"
+                disabled={loading}
+              >
+                Add to list
+              </StyledButton>
             )}
           </Box>
         </CardContent>

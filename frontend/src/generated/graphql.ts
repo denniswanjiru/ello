@@ -53,12 +53,55 @@ export type QuerySearchBooksArgs = {
   title: Scalars['String']['input'];
 };
 
+export type AddBookToReadingListMutationVariables = Exact<{
+  title: Scalars['String']['input'];
+}>;
+
+
+export type AddBookToReadingListMutation = { __typename?: 'Mutation', addBookToReadingList?: { __typename?: 'Book', author?: string | null, title?: string | null, coverPhotoURL?: string | null, readingLevel?: string | null } | null };
+
 export type GetBooksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetBooksQuery = { __typename?: 'Query', books?: Array<{ __typename?: 'Book', author?: string | null, title?: string | null, coverPhotoURL?: string | null, readingLevel?: string | null } | null> | null };
 
 
+export const AddBookToReadingListDocument = gql`
+    mutation AddBookToReadingList($title: String!) {
+  addBookToReadingList(title: $title) {
+    author
+    title
+    coverPhotoURL
+    readingLevel
+  }
+}
+    `;
+export type AddBookToReadingListMutationFn = Apollo.MutationFunction<AddBookToReadingListMutation, AddBookToReadingListMutationVariables>;
+
+/**
+ * __useAddBookToReadingListMutation__
+ *
+ * To run a mutation, you first call `useAddBookToReadingListMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddBookToReadingListMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addBookToReadingListMutation, { data, loading, error }] = useAddBookToReadingListMutation({
+ *   variables: {
+ *      title: // value for 'title'
+ *   },
+ * });
+ */
+export function useAddBookToReadingListMutation(baseOptions?: Apollo.MutationHookOptions<AddBookToReadingListMutation, AddBookToReadingListMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddBookToReadingListMutation, AddBookToReadingListMutationVariables>(AddBookToReadingListDocument, options);
+      }
+export type AddBookToReadingListMutationHookResult = ReturnType<typeof useAddBookToReadingListMutation>;
+export type AddBookToReadingListMutationResult = Apollo.MutationResult<AddBookToReadingListMutation>;
+export type AddBookToReadingListMutationOptions = Apollo.BaseMutationOptions<AddBookToReadingListMutation, AddBookToReadingListMutationVariables>;
 export const GetBooksDocument = gql`
     query GetBooks {
   books {

@@ -7,6 +7,8 @@ import { GET_BOOKS } from "../../graphql/queries";
 export default function AllBooks() {
   const { error, data } = useQuery(GET_BOOKS);
 
+  // using !data and !error in place of loading
+  // to avoid race - condition bugs
   if (!error && !data) return <div>Loading</div>;
 
   if (error) return <div>Something went wrong</div>;
