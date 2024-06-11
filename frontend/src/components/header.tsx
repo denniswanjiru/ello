@@ -1,7 +1,7 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, InputAdornment, TextField } from "@mui/material";
 
-import Logo from "../assets/ello-logo.png";
+import Logo from "/assets/ello-logo.png";
 
 export default function Header() {
   return (

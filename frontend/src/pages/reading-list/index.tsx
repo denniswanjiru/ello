@@ -6,7 +6,7 @@ export default function ReadingList() {
     <Grid container spacing={6}>
       {[1, 2, 3, 4, 5].map((idx) => (
         <Grid key={idx} item xs={12} md={6} lg={4}>
-          <BookCard reading />
+          <BookCard reading book={{}} />
         </Grid>
       ))}
     </Grid>

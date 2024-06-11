@@ -1,13 +1,12 @@
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 
-import { Button, ButtonProps } from "@mui/material";
+import { Button, ButtonProps, CardMedia } from "@mui/material";
 import { orange } from "@mui/material/colors";
-import BookUrl from "../assets/image10.webp";
+import { Book } from "../generated/graphql";
 
 const StyledButton = styled(Button)<ButtonProps & { danger?: boolean }>(
   ({ danger }) => ({
@@ -25,36 +24,48 @@ const StyledButton = styled(Button)<ButtonProps & { danger?: boolean }>(
   })
 );
 
-export default function BookCard({ reading }: { reading?: boolean }) {
+export default function BookCard({
+  reading,
+  book,
+}: {
+  reading?: boolean;
+  book: Book;
+}) {
   return (
-    <Card sx={{ display: "flex" }}>
+    <Card sx={{ display: "flex", borderRadius: "10px" }}>
       <CardMedia
         component="img"
-        sx={{ width: 154 }}
-        image={BookUrl}
+        sx={{ width: 144 }}
+        image={"/" + book.coverPhotoURL}
         style={{ borderRadius: "10px" }}
         alt="Live from space album cover"
       />
 
       <Box sx={{ display: "flex", flexDirection: "column", paddingLeft: 2 }}>
         <CardContent sx={{}}>
-          <Typography component="div" variant="h6">
-            2 - 5 years
-          </Typography>
-
-          <Typography component="div" variant="h5" fontWeight="bold">
-            Live From Space
+          <Typography component="div" variant="subtitle1">
+            Level: {book.readingLevel}
           </Typography>
 
           <Typography
-            variant="subtitle1"
-            color="text.secondary"
             component="div"
+            variant="h5"
+            fontWeight="bold"
+            sx={{
+              maxWidth: "265px",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
           >
-            Mac Miller
+            {book.title}
           </Typography>
 
-          <Box sx={{ display: "flex", alignItems: "center", pt: 1, pb: 1 }}>
+          <Typography color="text.secondary" component="p" fontSize={18}>
+            {book.author}
+          </Typography>
+
+          <Box sx={{ display: "flex", alignItems: "center", pt: 1 }}>
             {reading ? (
               <StyledButton variant="contained" danger>
                 Remove from list
