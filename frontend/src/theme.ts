@@ -5,6 +5,21 @@ const theme = createTheme({
   typography: {
     fontFamily: "Mulish, Arial, sans-serif",
   },
+  palette: {
+    background: {
+      default: "#F2F5FC",
+      paper: "#fff",
+    },
+    primary: {
+      main: "#F26434",
+    },
+    secondary: {
+      main: "#000",
+    },
+    text: {
+      primary: "#000",
+    },
+  },
 });
 
 export default theme;
