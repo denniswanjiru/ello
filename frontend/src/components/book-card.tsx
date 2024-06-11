@@ -6,7 +6,8 @@ import Typography from "@mui/material/Typography";
 import { useMutation } from "@apollo/client";
 import { CardMedia } from "@mui/material";
 import { Book } from "../generated/graphql";
-import { ADD_BOOK_TO_LIST } from "../graphql/mutations";
+import { ADD_BOOK_TO_LIST, REMOVE_BOOK_FROM_LIST } from "../graphql/mutations";
+import { GET_BOOKS, GET_READING_LIST } from "../graphql/queries";
 import { StyledButton } from "./ui/styled-button";
 
 export default function BookCard({
@@ -16,7 +17,16 @@ export default function BookCard({
   reading?: boolean;
   book: Book;
 }) {
-  const [addBookToList, { loading }] = useMutation(ADD_BOOK_TO_LIST);
+  const [addBookToList, { loading }] = useMutation(ADD_BOOK_TO_LIST, {
+    refetchQueries: [GET_BOOKS, GET_READING_LIST],
+  });
+
+  const [removeBookFromList, { loading: removingBook }] = useMutation(
+    REMOVE_BOOK_FROM_LIST,
+    {
+      refetchQueries: [GET_BOOKS, GET_READING_LIST],
+    }
+  );
 
   const handleAddBookToList = async () => {
     try {
@@ -24,6 +34,15 @@ export default function BookCard({
       console.log("success!!");
     } catch (error) {
       console.log("Unable to add book to the reading list");
+    }
+  };
+
+  const handleRemoveBookFromList = async () => {
+    try {
+      await removeBookFromList({ variables: { title: book.title } });
+      console.log("success removed!!");
+    } catch (error) {
+      console.log("Unable to remove book from the reading list");
     }
   };
 
@@ -63,7 +82,12 @@ export default function BookCard({
 
           <Box sx={{ display: "flex", alignItems: "center", pt: 1 }}>
             {reading ? (
-              <StyledButton variant="contained" danger>
+              <StyledButton
+                danger
+                variant="contained"
+                disabled={removingBook}
+                onClick={handleRemoveBookFromList}
+              >
                 Remove from list
               </StyledButton>
             ) : (

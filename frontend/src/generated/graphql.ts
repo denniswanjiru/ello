@@ -60,10 +60,22 @@ export type AddBookToReadingListMutationVariables = Exact<{
 
 export type AddBookToReadingListMutation = { __typename?: 'Mutation', addBookToReadingList?: { __typename?: 'Book', author?: string | null, title?: string | null, coverPhotoURL?: string | null, readingLevel?: string | null } | null };
 
+export type RemoveBookFromReadingListMutationVariables = Exact<{
+  title: Scalars['String']['input'];
+}>;
+
+
+export type RemoveBookFromReadingListMutation = { __typename?: 'Mutation', removeBookFromReadingList?: { __typename?: 'Book', author?: string | null, title?: string | null, coverPhotoURL?: string | null, readingLevel?: string | null } | null };
+
 export type GetBooksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetBooksQuery = { __typename?: 'Query', books?: Array<{ __typename?: 'Book', author?: string | null, title?: string | null, coverPhotoURL?: string | null, readingLevel?: string | null } | null> | null };
+
+export type ReadingListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ReadingListQuery = { __typename?: 'Query', readingList?: Array<{ __typename?: 'Book', author?: string | null, title?: string | null, coverPhotoURL?: string | null, readingLevel?: string | null } | null> | null };
 
 
 export const AddBookToReadingListDocument = gql`
@@ -102,6 +114,42 @@ export function useAddBookToReadingListMutation(baseOptions?: Apollo.MutationHoo
 export type AddBookToReadingListMutationHookResult = ReturnType<typeof useAddBookToReadingListMutation>;
 export type AddBookToReadingListMutationResult = Apollo.MutationResult<AddBookToReadingListMutation>;
 export type AddBookToReadingListMutationOptions = Apollo.BaseMutationOptions<AddBookToReadingListMutation, AddBookToReadingListMutationVariables>;
+export const RemoveBookFromReadingListDocument = gql`
+    mutation RemoveBookFromReadingList($title: String!) {
+  removeBookFromReadingList(title: $title) {
+    author
+    title
+    coverPhotoURL
+    readingLevel
+  }
+}
+    `;
+export type RemoveBookFromReadingListMutationFn = Apollo.MutationFunction<RemoveBookFromReadingListMutation, RemoveBookFromReadingListMutationVariables>;
+
+/**
+ * __useRemoveBookFromReadingListMutation__
+ *
+ * To run a mutation, you first call `useRemoveBookFromReadingListMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveBookFromReadingListMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeBookFromReadingListMutation, { data, loading, error }] = useRemoveBookFromReadingListMutation({
+ *   variables: {
+ *      title: // value for 'title'
+ *   },
+ * });
+ */
+export function useRemoveBookFromReadingListMutation(baseOptions?: Apollo.MutationHookOptions<RemoveBookFromReadingListMutation, RemoveBookFromReadingListMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveBookFromReadingListMutation, RemoveBookFromReadingListMutationVariables>(RemoveBookFromReadingListDocument, options);
+      }
+export type RemoveBookFromReadingListMutationHookResult = ReturnType<typeof useRemoveBookFromReadingListMutation>;
+export type RemoveBookFromReadingListMutationResult = Apollo.MutationResult<RemoveBookFromReadingListMutation>;
+export type RemoveBookFromReadingListMutationOptions = Apollo.BaseMutationOptions<RemoveBookFromReadingListMutation, RemoveBookFromReadingListMutationVariables>;
 export const GetBooksDocument = gql`
     query GetBooks {
   books {
@@ -144,3 +192,45 @@ export type GetBooksQueryHookResult = ReturnType<typeof useGetBooksQuery>;
 export type GetBooksLazyQueryHookResult = ReturnType<typeof useGetBooksLazyQuery>;
 export type GetBooksSuspenseQueryHookResult = ReturnType<typeof useGetBooksSuspenseQuery>;
 export type GetBooksQueryResult = Apollo.QueryResult<GetBooksQuery, GetBooksQueryVariables>;
+export const ReadingListDocument = gql`
+    query ReadingList {
+  readingList {
+    author
+    title
+    coverPhotoURL
+    readingLevel
+  }
+}
+    `;
+
+/**
+ * __useReadingListQuery__
+ *
+ * To run a query within a React component, call `useReadingListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useReadingListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReadingListQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useReadingListQuery(baseOptions?: Apollo.QueryHookOptions<ReadingListQuery, ReadingListQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ReadingListQuery, ReadingListQueryVariables>(ReadingListDocument, options);
+      }
+export function useReadingListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ReadingListQuery, ReadingListQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ReadingListQuery, ReadingListQueryVariables>(ReadingListDocument, options);
+        }
+export function useReadingListSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<ReadingListQuery, ReadingListQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<ReadingListQuery, ReadingListQueryVariables>(ReadingListDocument, options);
+        }
+export type ReadingListQueryHookResult = ReturnType<typeof useReadingListQuery>;
+export type ReadingListLazyQueryHookResult = ReturnType<typeof useReadingListLazyQuery>;
+export type ReadingListSuspenseQueryHookResult = ReturnType<typeof useReadingListSuspenseQuery>;
+export type ReadingListQueryResult = Apollo.QueryResult<ReadingListQuery, ReadingListQueryVariables>;

@@ -10,3 +10,14 @@ export const ADD_BOOK_TO_LIST = gql`
     }
   }
 `;
+
+export const REMOVE_BOOK_FROM_LIST = gql`
+  mutation RemoveBookFromReadingList($title: String!) {
+    removeBookFromReadingList(title: $title) {
+      author
+      title
+      coverPhotoURL
+      readingLevel
+    }
+  }
+`;
