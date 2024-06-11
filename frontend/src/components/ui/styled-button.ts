@@ -1,9 +1,9 @@
 import { Button, ButtonProps, styled } from "@mui/material";
-import { orange } from "@mui/material/colors";
+import { orange, red } from "@mui/material/colors";
 
 export const StyledButton = styled(Button)<ButtonProps & { danger?: boolean }>(
   ({ danger }) => ({
-    backgroundColor: danger ? "red" : "",
+    backgroundColor: danger ? red[600] : "",
     color: "white",
     marginTop: 3,
     borderRadius: "8px",
@@ -12,7 +12,7 @@ export const StyledButton = styled(Button)<ButtonProps & { danger?: boolean }>(
     fontSize: "!4px",
     textTransform: "capitalize",
     "&:hover": {
-      backgroundColor: orange[700],
+      backgroundColor: danger ? red[400] : orange[700],
     },
   })
 );
