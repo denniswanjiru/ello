@@ -15,9 +15,9 @@ export default function AllBooks() {
 
   return (
     <Grid container spacing={6}>
-      {data.books.map((book: Book, idx: number) => (
+      {data.books.map((book: Book) => (
         <Grid
-          key={book?.title ?? "" + book?.coverPhotoURL + idx}
+          key={JSON.stringify(book) + new Date().toLocaleString()}
           item
           xs={12}
           md={6}

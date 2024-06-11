@@ -10,3 +10,14 @@ export const GET_BOOKS = gql`
     }
   }
 `;
+
+export const GET_READING_LIST = gql`
+  query ReadingList {
+    readingList {
+      author
+      title
+      coverPhotoURL
+      readingLevel
+    }
+  }
+`;
