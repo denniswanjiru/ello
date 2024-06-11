@@ -9,16 +9,23 @@ import { Button, ButtonProps } from "@mui/material";
 import { orange } from "@mui/material/colors";
 import BookUrl from "../assets/image10.webp";
 
-const StyledButton = styled(Button)<ButtonProps>(() => ({
-  backgroundColor: "theme.primary.main",
-  color: "white",
-  marginTop: 3,
-  "&:hover": {
-    backgroundColor: orange[700],
-  },
-}));
+const StyledButton = styled(Button)<ButtonProps & { danger?: boolean }>(
+  ({ danger }) => ({
+    backgroundColor: danger ? "red" : "",
+    color: "white",
+    marginTop: 3,
+    borderRadius: "8px",
+    height: "32px",
+    fontWeight: "bold",
+    fontSize: "!4px",
+    textTransform: "capitalize",
+    "&:hover": {
+      backgroundColor: orange[700],
+    },
+  })
+);
 
-export default function BookCard() {
+export default function BookCard({ reading }: { reading?: boolean }) {
   return (
     <Card sx={{ display: "flex" }}>
       <CardMedia
@@ -30,7 +37,7 @@ export default function BookCard() {
       />
 
       <Box sx={{ display: "flex", flexDirection: "column", paddingLeft: 2 }}>
-        <CardContent sx={{ flex: "1 0 auto" }}>
+        <CardContent sx={{}}>
           <Typography component="div" variant="h6">
             2 - 5 years
           </Typography>
@@ -48,7 +55,13 @@ export default function BookCard() {
           </Typography>
 
           <Box sx={{ display: "flex", alignItems: "center", pt: 1, pb: 1 }}>
-            <StyledButton variant="contained">Add to list</StyledButton>
+            {reading ? (
+              <StyledButton variant="contained" danger>
+                Remove from list
+              </StyledButton>
+            ) : (
+              <StyledButton variant="contained">Add to list</StyledButton>
+            )}
           </Box>
         </CardContent>
       </Box>
