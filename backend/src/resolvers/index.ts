@@ -20,9 +20,17 @@ export const resolvers = {
     },
   },
   Mutation: {
-    addBookToReadingList: (_: unknown, { title }: { title: string }) => {
-      const book = booksData.find((book) => book.title === title);
-      const alreadyAdded = !!readingList.find((bk) => bk.title === title);
+    addBookToReadingList: (
+      _: unknown,
+      { title, author }: { title: string; author: string }
+    ) => {
+      const book = booksData.find(
+        (book) => book.title === title && book.author === author
+      );
+
+      const alreadyAdded = !!readingList.find(
+        (book) => book.title === title && book.author === author
+      );
 
       if (book && !alreadyAdded) {
         readingList.push(book);
@@ -30,8 +38,13 @@ export const resolvers = {
 
       return book;
     },
-    removeBookFromReadingList: (_: unknown, { title }: { title: string }) => {
-      const bookIndex = readingList.findIndex((book) => book.title === title);
+    removeBookFromReadingList: (
+      _: unknown,
+      { title, author }: { title: string; author: string }
+    ) => {
+      const bookIndex = readingList.findIndex(
+        (book) => book.title === title && book.author === author
+      );
 
       if (bookIndex !== -1) {
         const [removedBook] = readingList.splice(bookIndex, 1);

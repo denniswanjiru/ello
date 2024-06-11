@@ -33,11 +33,13 @@ export type Mutation = {
 
 
 export type MutationAddBookToReadingListArgs = {
+  author: Scalars['String']['input'];
   title: Scalars['String']['input'];
 };
 
 
 export type MutationRemoveBookFromReadingListArgs = {
+  author: Scalars['String']['input'];
   title: Scalars['String']['input'];
 };
 
@@ -55,6 +57,7 @@ export type QuerySearchBooksArgs = {
 
 export type AddBookToReadingListMutationVariables = Exact<{
   title: Scalars['String']['input'];
+  author: Scalars['String']['input'];
 }>;
 
 
@@ -62,6 +65,7 @@ export type AddBookToReadingListMutation = { __typename?: 'Mutation', addBookToR
 
 export type RemoveBookFromReadingListMutationVariables = Exact<{
   title: Scalars['String']['input'];
+  author: Scalars['String']['input'];
 }>;
 
 
@@ -79,8 +83,8 @@ export type ReadingListQuery = { __typename?: 'Query', readingList?: Array<{ __t
 
 
 export const AddBookToReadingListDocument = gql`
-    mutation AddBookToReadingList($title: String!) {
-  addBookToReadingList(title: $title) {
+    mutation AddBookToReadingList($title: String!, $author: String!) {
+  addBookToReadingList(title: $title, author: $author) {
     author
     title
     coverPhotoURL
@@ -104,6 +108,7 @@ export type AddBookToReadingListMutationFn = Apollo.MutationFunction<AddBookToRe
  * const [addBookToReadingListMutation, { data, loading, error }] = useAddBookToReadingListMutation({
  *   variables: {
  *      title: // value for 'title'
+ *      author: // value for 'author'
  *   },
  * });
  */
@@ -115,8 +120,8 @@ export type AddBookToReadingListMutationHookResult = ReturnType<typeof useAddBoo
 export type AddBookToReadingListMutationResult = Apollo.MutationResult<AddBookToReadingListMutation>;
 export type AddBookToReadingListMutationOptions = Apollo.BaseMutationOptions<AddBookToReadingListMutation, AddBookToReadingListMutationVariables>;
 export const RemoveBookFromReadingListDocument = gql`
-    mutation RemoveBookFromReadingList($title: String!) {
-  removeBookFromReadingList(title: $title) {
+    mutation RemoveBookFromReadingList($title: String!, $author: String!) {
+  removeBookFromReadingList(title: $title, author: $author) {
     author
     title
     coverPhotoURL
@@ -140,6 +145,7 @@ export type RemoveBookFromReadingListMutationFn = Apollo.MutationFunction<Remove
  * const [removeBookFromReadingListMutation, { data, loading, error }] = useRemoveBookFromReadingListMutation({
  *   variables: {
  *      title: // value for 'title'
+ *      author: // value for 'author'
  *   },
  * });
  */

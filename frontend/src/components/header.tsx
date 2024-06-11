@@ -48,8 +48,6 @@ export default function Header() {
             }}
           />
         </Box>
-
-        {/* <Avatar>DE</Avatar> */}
       </Box>
     </Box>
   );

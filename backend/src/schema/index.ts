@@ -13,7 +13,7 @@ export const typeDefs = `#graphql
   }
 
   type Mutation {
-    addBookToReadingList(title: String!): Book
-    removeBookFromReadingList(title: String!): Book
+    addBookToReadingList(title: String!, author: String!): Book
+    removeBookFromReadingList(title: String!, author: String!): Book
   }
 `;

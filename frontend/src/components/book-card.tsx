@@ -30,7 +30,9 @@ export default function BookCard({
 
   const handleAddBookToList = async () => {
     try {
-      await addBookToList({ variables: { title: book.title } });
+      await addBookToList({
+        variables: { title: book.title, author: book.author },
+      });
       console.log("success!!");
     } catch (error) {
       console.log("Unable to add book to the reading list");
@@ -39,7 +41,9 @@ export default function BookCard({
 
   const handleRemoveBookFromList = async () => {
     try {
-      await removeBookFromList({ variables: { title: book.title } });
+      await removeBookFromList({
+        variables: { title: book.title, author: book.author },
+      });
       console.log("success removed!!");
     } catch (error) {
       console.log("Unable to remove book from the reading list");
