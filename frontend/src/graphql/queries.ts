@@ -21,3 +21,14 @@ export const GET_READING_LIST = gql`
     }
   }
 `;
+
+export const SEARCH_BOOK = gql`
+  query SearchBook($title: String!) {
+    searchBooks(title: $title) {
+      author
+      title
+      readingLevel
+      coverPhotoURL
+    }
+  }
+`;

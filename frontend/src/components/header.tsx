@@ -1,9 +1,13 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { Box, InputAdornment, TextField } from "@mui/material";
 
+import { useState } from "react";
+import SearchModal from "./modals/search-modal";
 import Logo from "/assets/ello-logo.png";
 
 export default function Header() {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <Box component="header" pt={3}>
       <Box
@@ -19,6 +23,8 @@ export default function Header() {
           <TextField
             variant="outlined"
             placeholder="Search by title"
+            onMouseDown={() => setShowModal(true)}
+            onKeyDown={() => setShowModal(true)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start" sx={{ marginRight: "6px" }}>
@@ -49,6 +55,8 @@ export default function Header() {
           />
         </Box>
       </Box>
+
+      <SearchModal open={showModal} handleClose={() => setShowModal(false)} />
     </Box>
   );
 }
