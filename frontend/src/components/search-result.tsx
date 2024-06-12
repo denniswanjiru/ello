@@ -2,7 +2,11 @@ import { Box, Typography } from "@mui/material";
 import { Book } from "../generated/graphql";
 import { StyledButton } from "./ui/styled-button";
 
-export default function SearchResult({ book }: { book: Book }) {
+type Props = {
+  book: Book;
+  handleAddBookToList: () => void;
+};
+export default function SearchResult({ book, handleAddBookToList }: Props) {
   return (
     <Box
       display="flex"
@@ -53,7 +57,9 @@ export default function SearchResult({ book }: { book: Book }) {
         </Box>
       </Box>
 
-      <StyledButton variant="contained">Add</StyledButton>
+      <StyledButton onClick={handleAddBookToList} variant="contained">
+        Add
+      </StyledButton>
     </Box>
   );
 }
