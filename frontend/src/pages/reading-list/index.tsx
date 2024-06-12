@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import BookCard from "../../components/book-card";
 import { Book } from "../../generated/graphql";
 import { GET_READING_LIST } from "../../graphql/queries";
@@ -9,7 +9,13 @@ export default function ReadingList() {
 
   // using !data and !error in place of loading
   // to avoid race - condition bugs
-  if (!error && !data) return <div>Loading</div>;
+  if (!error && !data) {
+    return (
+      <Box display="grid" sx={{ placeItems: "center", mt: 20 }}>
+        <CircularProgress color="inherit" />
+      </Box>
+    );
+  }
 
   if (error) return <div>Something went wrong</div>;
 
